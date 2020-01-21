@@ -1,6 +1,7 @@
 .container
-  %h1 楽市楽船
+  %h1.text-center 楽市楽船
   - @posts.each do |post|
-    .col-md-4
-      %p= post.title
+    .col-md-4.margin-top-5per
+      = image_tag 'chukotei.jpeg', class: 'img-responsive'
+      %p.title= post.title
       = post.created_at.strftime("%Y年%m月%d日")
