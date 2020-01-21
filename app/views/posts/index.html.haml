@@ -2,6 +2,6 @@
   %h1.text-center 楽市楽船
   - @posts.each do |post|
     .col-md-4.margin-top-5per.bg-white
-      -# = image_tag 'chukotei.jpeg', class: 'img-responsive'
+      = image_tag 'chukotei.jpeg', class: 'img-responsive'
       %p.title= post.title
       = post.created_at.strftime("%Y年%m月%d日")
