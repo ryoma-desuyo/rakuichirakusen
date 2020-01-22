@@ -1,9 +1,10 @@
+= render 'shared/header'
 .container
   .col-md-12.margin-top-5per.post-block.padding-top-15
     = image_tag 'chukotei.png', class: 'post-image padding-top-15'
     %h1= @post.title
-    .padding-bottom-15
-      %p.title= @post.body
+    .padding-bottom-15{style: 'padding: 10px;'}
+      = simple_format @post.body
       %p.text-right
         = @post.created_at.strftime("%Y年%m月%d日")
     = link_to '編集', edit_post_path(@post), class: 'btn btn-primary'
