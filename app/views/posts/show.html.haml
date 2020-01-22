@@ -6,3 +6,5 @@
       %p.title= @post.body
       %p.text-right
         = @post.created_at.strftime("%Y年%m月%d日")
+    = link_to '編集', edit_post_path(@post), class: 'btn btn-primary'
+    = link_to '削除', post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }  ,class: 'btn btn-danger'
