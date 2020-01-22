@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   end
 
   def create
+    @post = Post.new(post_params)
     if @post.save
       flash[:notice] = "「#{@post.title}」の質問が投稿されました!"
       redirect_to @post
@@ -48,5 +49,9 @@ class PostsController < ApplicationController
 
   def find_post
     @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end

@@ -1,2 +1,6 @@
-%h1 Posts#edit
-%p Find me in app/views/posts/edit.html.erb
+.container
+  .col-md-12.margin-top-5per.post-block
+    %h1.text-center 商品編集
+    = image_tag 'chukotei.png', class: 'post-image padding-top-15'
+    .padding-bottom-15
+      =render 'shared/form', post: @post
