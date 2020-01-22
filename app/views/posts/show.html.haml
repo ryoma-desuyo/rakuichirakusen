@@ -1,2 +1,8 @@
-%h1 Posts#show
-%p Find me in app/views/posts/show.html.erb
+.container
+  .col-md-12.margin-top-5per.post-block.padding-top-15
+    = image_tag 'chukotei.png', class: 'post-image padding-top-15'
+    %h1= @post.title
+    .padding-bottom-15
+      %p.title= @post.body
+      %p.text-right
+        = @post.created_at.strftime("%Y年%m月%d日")
