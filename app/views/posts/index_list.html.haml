@@ -1,11 +1,22 @@
 = render 'shared/header'
-.container-list
+.container
+  .search
+    .search-container
+      .search-right
+        %section.items-box-container
+          -if @search.present?
+            %h2.search-result-head
+              =@search
+              %span.search-result-head-text
+                の検索結果
+            .search-result-number
+              ="1-#{@posts.count}件表示"
+.container
   .d-flex.align-items-center
     %h1 質問一覧
   %table.table.table-bordered.border-primary.table-hover.table-sm.posts_table
     %thead.bg-info.text-light
       %tr.list-head
-        %th{:scope => "col", :style => "width: 40px"} カテゴリー
         %th{:scope => "col", :style => "width: 200px"} タイトル
         %th{:scope => "col", :style => "width: 500px"} 質問内容
         %th{:scope => "col"} 質問者
@@ -14,7 +25,6 @@
     %tbody
       - @posts.each do |post|
         %tr
-          %th
           %td= post.title
           %td= truncate(post.body, length: 90)
           %td= post.user.profile.name
