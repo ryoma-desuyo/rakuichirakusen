@@ -11,7 +11,10 @@
     - @posts.each do |post|
       = link_to post do
         .col-md-4.margin-top-5per.post-block.padding-top-15
-          = image_tag 'chukotei.png', class: 'img-responsive padding-top-15'
+          - if post.image_id.present?
+            = image_tag attachment_url(post, :image), class: 'img-responsive padding-top-15 post-list-image'
+          - else
+            = image_tag 'no_image.png', class: 'img-responsive padding-top-15 post-list-image'
           .padding-bottom-15
             %p.title= post.title
             %span
