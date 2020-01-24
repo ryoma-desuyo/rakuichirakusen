@@ -6,6 +6,10 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{:href => "/"} 楽市楽船
+    .form-inline
+      = form_tag(searches_path,method: :get) do
+        = text_field_tag :search, "",placeholder:"何かお探しですか？"
+        = submit_tag 'search', :name => nil
     #navigation.collapse.navbar-collapse
       %p.navbar-text.navbar-right 
         - if user_signed_in?
