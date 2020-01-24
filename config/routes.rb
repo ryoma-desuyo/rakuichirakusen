@@ -10,6 +10,13 @@ Rails.application.routes.draw do
     get "login", :to => "users/sessions#new"
     get "logout", :to => "users/sessions#destroy"
   end
+
   root 'posts#index'
-  resources :posts
+
+  resources :posts do
+    collection do
+      get 'index_list'
+    end
+  end
+
 end
