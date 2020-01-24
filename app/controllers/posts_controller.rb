@@ -46,6 +46,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def index_list
+    @posts = Post.order(created_at: :desc)
+  end
+
   private
 
   def find_post
@@ -53,6 +57,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image)
   end
 end
