@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
   def index
     @posts = Post.order(created_at: :desc)
+    @posts = Post.page(params[:page]).per(5).order("created_at DESC")
   end
 
   def create
@@ -48,6 +49,8 @@ class PostsController < ApplicationController
 
   def index_list
     @posts = Post.order(created_at: :desc)
+    @posts = Post.page(params[:page]).per(20).order("created_at DESC")
+    
   end
 
   private

@@ -6,6 +6,15 @@
       %p 2020/2/24 ログイン・画像投稿が可能になりました。
       %p 2020/2/23 商品の登録が可能になりました。
       %p 2020/2/22 「楽市楽船」の開発を開始しました。
+  .jumbotron
+    %h1.display_3 楽市楽船
+    %p.lead
+    %hr.my-2/
+    %p
+    %p.lead{style: 'display: grid;'}
+      %a.btn.btn-primary.btn-lg{:href => "posts/new", :role => "button"} 質問する
+    %p.lead{style: 'display: grid;'}
+      %a.btn.btn-primary.btn-lg{:href => "posts/index_list", :role => "button"} 質問一覧へ
 
 .container
   .row
@@ -22,3 +31,5 @@
               = post.created_at.strftime("%Y年%m月%d日")
   .row
     = link_to '新規作成', new_post_path, class:'margin-top-5per btn btn-primary'
+  .row
+    = paginate @posts

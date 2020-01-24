@@ -11,6 +11,9 @@
                 の検索結果
             .search-result-number
               ="1-#{@posts.count}件表示"
+          -else
+            %h2.search-result-nil
+              新着の質問
 .container
   .d-flex.align-items-center
     %h1 質問一覧
