@@ -1,5 +1,7 @@
 = form_for post do |f|
   .form-group.padding-top-15
+    =f.attachment_field :image
+  .form-group.padding-top-15
     =f.label :title, 'タイトル'
     =f.text_field :title, class: 'form-control'
   .form-group
