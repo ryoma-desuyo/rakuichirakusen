@@ -1,0 +1,37 @@
+= render 'shared/header'
+.container
+  .search
+    .search-container
+      .search-right
+        %section.items-box-container
+          -if @search.present?
+            %h2.search-result-head
+              =@search
+              %span.search-result-head-text
+                の検索結果
+            .search-result-number
+              ="1-#{@posts.count}件表示"
+          -else
+            %h2.search-result-nil
+              新着の質問
+.container
+  .d-flex.align-items-center
+    %h1 質問一覧
+  %table.table.table-bordered.border-primary.table-hover.table-sm.posts_table
+    %thead.bg-info.text-light
+      %tr.list-head
+        %th{:scope => "col", :style => "width: 200px"} タイトル
+        %th{:scope => "col", :style => "width: 500px"} 質問内容
+        %th{:scope => "col"} 質問者
+        %th{:scope => "col"} 更新日時
+        %th
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td= post.title
+          %td= truncate(post.body, length: 90)
+          %td= post.user.profile.name
+          %td= post.updated_at.strftime('%Y/%m/%d')
+          %td= link_to '詳細', post, id: "detail-" + post.id.to_s, class: 'btn btn-outline-info'
+  %p.lead{style: 'display: grid;'}
+    = link_to 'トップページへ', root_path ,class: 'btn btn-primary btn-lg'
