@@ -1,10 +1,38 @@
 = form_for post do |f|
-  .form-group.padding-top-15
-    =f.attachment_field :image
-  .form-group.padding-top-15
-    =f.label :title, 'タイトル'
-    =f.text_field :title, class: 'form-control'
   .form-group
-    =f.label :body, '本文'
-    =f.text_area :body, rows: 10, class: 'form-control'
-  =f.submit class:'btn btn-success'
+    %span カテゴリー
+    .tag-block
+      = f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag|
+        .form-check
+          = tag.label class: 'form-check-label' do
+            = tag.check_box class: 'form-check-input'
+            = tag.text
+  .form-group.padding-top-15
+    = f.label :title, 'タイトル'
+    = f.text_field :title, class: 'form-control'
+  .form-group.padding-top-15
+    = f.label :body, '本文'
+    = f.text_area :body, rows: 10, class: 'form-control'
+    = fa_icon "cloud-upload fa-spin", class: "icon"
+    = f.label :image
+    = f.file_field :image, id: 'post_img'
+    = image_tag @post.image.to_s, id: :img_prev
+    :javascript
+      $(function() {
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#img_prev').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      $("#post_img").change(function(){
+        readURL(this);
+      });
+      });
+
+  = f.submit data: {disable_with: '投稿中・・・' }, class: 'btn btn-success'
+  %p.lead{style: 'display: grid;'}
+    = link_to '質問一覧へ', index_list_posts_path ,class: 'btn btn-primary btn-lg'
