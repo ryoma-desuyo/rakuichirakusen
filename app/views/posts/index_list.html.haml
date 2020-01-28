@@ -14,9 +14,13 @@
 .container
   .d-flex.align-items-center
     %h1 質問一覧
+    .ml-auto.posts_button
+      = form_tag index_list_posts_path, method: :get, class: 'posts__searchForm' do
+        = select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]), { prompt: 'タグで絞り込み', class: 'form-control posts__select', onchange: 'submit(this.form);'}
   %table.table.table-bordered.border-primary.table-hover.table-sm.posts_table
     %thead.bg-info.text-light
       %tr.list-head
+        %th{:scope => "col", :style => "width: 40px"} カテゴリー
         %th{:scope => "col", :style => "width: 200px"} タイトル
         %th{:scope => "col", :style => "width: 500px"} 質問内容
         %th{:scope => "col"} 質問者
@@ -25,6 +29,9 @@
     %tbody
       - @posts.each do |post|
         %tr
+          %th
+            - post.tags.each do |tag|
+              %span.badge.badge-light= tag.name
           %td= post.title
           %td= truncate(post.body, length: 90)
           %td= post.user.profile.name
