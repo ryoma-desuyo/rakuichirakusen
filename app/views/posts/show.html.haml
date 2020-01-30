@@ -1,17 +1,27 @@
 = render 'shared/header'
 .container
   .col-md-12.margin-top-5per.post-block.padding-top-15
-    - if @post.image_id.present?
-      = image_tag attachment_url(@post, :image), class: 'post-image padding-top-15'
-    - else
-      = image_tag 'no_image.png', class: 'post-image padding-top-15'
+
     %h1= @post.title
     .padding-bottom-15{style: 'padding: 10px;'}
       = simple_format @post.body
       - @post.tags.each do |tag|
         %span.badge.badge-light= tag.name
-      %p.text-right
-        = @post.created_at.strftime("%Y年%m月%d日")
+        %h3
+          お気に入り件数: #{@post.favorites.count}
+        - if current_user.already_favorited?(@post)
+          = button_to 'お気に入りを解除する', post_favorite_path(@post), method: :delete, class: 'btn btn-danger'
+        - else
+          = button_to 'お気に入り登録', post_favorites_path(@post), class: 'btn btn-success'
+        %h2 お気に入りしたユーザー
+        - @post.favorited_users.each do |user|
+          %a.commenter{:href => "/users/#{user.id}"}= "#{user.name} さん"
+        - if @post.image_id.present?
+          = image_tag attachment_url(@post, :image), class: 'post-image padding-top-15'
+        - else
+          = image_tag 'no_image.png', class: 'post-image padding-top-15'
+        %p.text-right
+          = @post.created_at.strftime("%Y年%-m月%-d日")
     = link_to '編集', edit_post_path(@post), class: 'btn btn-primary'
     = link_to '削除', post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }  ,class: 'btn btn-danger'
 

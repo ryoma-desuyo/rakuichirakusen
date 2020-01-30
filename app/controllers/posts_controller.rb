@@ -27,6 +27,7 @@ class PostsController < ApplicationController
   def show
     @comments = @post.comments
     @comment = Comment.new
+    @favorite = Favorite.new
     @new_comments = Comment.new
   end
 
@@ -53,6 +54,7 @@ class PostsController < ApplicationController
   def index_list
     @posts = Post.order(created_at: :desc)
     @posts = Post.page(params[:page]).per(20).order("created_at DESC")
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.order("created_at DESC")
     
   end
 
