@@ -14,3 +14,47 @@
         = @post.created_at.strftime("%Y年%m月%d日")
     = link_to '編集', edit_post_path(@post), class: 'btn btn-primary'
     = link_to '削除', post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }  ,class: 'btn btn-danger'
+
+    .comment
+      %h2 回答一覧
+      - if @comment.user_id == current_user.id 
+        = link_to '削除', post_comment_path(@post, @comment), method: :delete, data: { confirm: "本当に削除しますか？" }  ,class: 'btn btn-danger comment-delete'
+        %hr/
+      = form_for [@post, @comment] do |f|
+        = f.text_area :content, rows: 10, class: 'form-control', placeholder: '質問に回答する（最大1000文字まで）'
+        %br/
+        = f.submit '回答する', class: 'btn btn-success answer'
+      - @comments.each do |comment|
+        %li.collection-item
+          %div
+            =link_to root_path, class: "icon-btn"
+            %a.commenter{:href => "/users/#{@post.user.id}"}= "#{comment.user.name} さん"
+            &nbsp;
+            &nbsp;
+            = @post.created_at.strftime("%Y年%-m月%-d日")
+            %br
+            %br
+            - unless comment.reply_comment == nil
+              コメント先-----------
+              %br/
+              = @comments.find(comment.reply_comment).content
+              %br/
+              %p ----------------------
+            = simple_format comment.content
+            = form_for [@post, @new_comments] do |f|
+              %ul.collapsible
+                %li
+                  .collapsible-header
+                    %i.material-icons > 
+                    コメントに返信をする（最大1000文字まで）
+                  .collapsible-body
+                    = f.text_area :content, rows: 6, class: 'form-control', placeholder: '（例）こちらを試してみましたが、まだリバーブが薄いです。'
+                    = f.hidden_field :reply_comment, :value => comment.id
+                    = button_tag type:"submit", class: "btn" do
+                      = f.submit "返信する", class: "btn btn-primary"
+          - if comment.user_id == current_user.id
+            = link_to post_comments_path(@post,comment), method: :delete , class: "btn" do
+              %i.fa.fa-arrow-left
+              %span 返信削除
+    %p.lead{style: 'display: grid;'}
+      = link_to '質問一覧へ', index_list_posts_path ,class: 'btn btn-primary btn-lg'
