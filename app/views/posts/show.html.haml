@@ -48,7 +48,7 @@
                     %i.material-icons > 
                     コメントに返信をする（最大1000文字まで）
                   .collapsible-body
-                    = f.text_area :content, rows: 6, class: 'form-control', placeholder: '（例）こちらを試してみましたが、まだリバーブが薄いです。'
+                    = f.text_area :content, rows: 6, class: 'form-control', placeholder: ''
                     = f.hidden_field :reply_comment, :value => comment.id
                     = button_tag type:"submit", class: "btn" do
                       = f.submit "返信する", class: "btn btn-primary"
