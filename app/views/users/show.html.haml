@@ -2,3 +2,7 @@
 .container
   %p
     MyPage #{@user.id}
+  %h3 お気に入りしている投稿
+  - @user.favorited_posts.each do |post|
+    = post.user.profile.name
+    %a{:href => "/posts/#{post.id}"}= post.title
