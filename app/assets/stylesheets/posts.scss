@@ -1,6 +1,18 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+.navbar-default {
+  background-color: $base-navy;
+  border-color: #e7e7e7;
+}
+
+.panel-default > .panel-heading {
+  color: #f5f5f5;
+  background-color: $base-navy;
+  border-color: #ddd;
+}
 
 .margin-top-5per {
   margin-top: 5%;
@@ -58,4 +70,157 @@ display: inline-block;
 .posts__select {
 display: inline-block;
 width: auto;
+}
+
+.img-responsive {
+  max-width: 35%;
+  float: left;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+// body{
+//    background-color: #f3f5f9;
+// }
+
+.wrapper{
+  display: inline-block;
+  position: relative;
+  float: left;
+}
+
+.wrapper .sidebar{
+  width: 200px;
+  height: 100%;
+  background: #202f55;
+  padding: 30px 0px;
+}
+
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li{
+  padding: 15px;
+  border-bottom: 1px solid #bdb8d7;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}    
+
+.wrapper .sidebar ul li a{
+  color: #bdb8d7;
+  display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+  width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+  background-color: #202f55;
+}
+    
+.wrapper .sidebar ul li:hover a{
+  color: #fff;
+}
+ 
+.wrapper .sidebar .social_media{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .sidebar .social_media a{
+  display: block;
+  width: 40px;
+  background: $base-navy;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #bdb8d7;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #717171;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+
+
+.side-bar {
+  width: 300px;
+}
+li {
+  list-style: none;
+}
+
+.list-group-item:first-child {
+  border-radius: 25px;
+}
+.list-head {
+  background-color: $base-navy;
+  border-radius: 25px;
+  height: 42px;
+  padding: 8px 15px;
+}
+
+.jumbotron {
+  width: 55%;
+  margin-left: 512px;
+  margin-left: 512px;
+
+  .anm_mod {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+    transition: all 1s ease;
+    &.left {
+      transform: translate3d(-100%, 0, 0);
+    }
+    &.right {
+    transform: translate3d(100%, 0, 0);
+    }
+    &.delay {
+    transition: all 2s ease;
+    }
+    &.fast {
+    transition: all 0.8 ease;
+    }
+  }
+}
+
+.panel-default {
+  display: inline-block;
+  display: flow-root;
 }
