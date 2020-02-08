@@ -83,7 +83,6 @@ width: auto;
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
 }
 
 // body{
@@ -101,6 +100,7 @@ width: auto;
   height: 100%;
   background: #202f55;
   padding: 30px 0px;
+  min-height: 1300px;
 }
 
 .wrapper .sidebar h2{
@@ -223,4 +223,8 @@ li {
 .panel-default {
   display: inline-block;
   display: flow-root;
+}
+
+.navbar-brand {
+  color: #fff;
 }

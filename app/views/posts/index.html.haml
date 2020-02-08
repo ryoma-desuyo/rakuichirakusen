@@ -2,25 +2,71 @@
 .container
   = render 'shared/side-bar'
   .panel.panel-default
-    .panel-heading 新着情報
+    .panel-heading 新着情報・新着商品
     .panel-body
       %p 2020/2/24 ログイン・画像投稿が可能になりました。
       %p 2020/2/23 商品の登録が可能になりました。
       %p 2020/2/22 「楽市楽船」の開発を開始しました。
-  .container-post
-    .row
-      - @posts.each do |post|
-        = link_to post do
-          .col-md-4.margin-top-5per.post-block.padding-top-15
-            - if post.image_id.present?
-              = image_tag attachment_url(post, :image), class: 'img-responsive padding-top-15 post-list-image'
-            - else
-              = image_tag 'no_image.png', class: 'img-responsive padding-top-15 post-list-image'
-            .padding-bottom-15
-              %p.title= post.title
-              %span
-                = post.created_at.strftime("%Y年%m月%d日")
-    .row
-      = link_to '新規作成', new_post_path, class:'margin-top-5per btn btn-primary'
-    .row
-      = paginate @posts
+  .panel.panel-default
+    .panel-heading 新着商品・人気商品
+    .container{style: "width: 925px;"}
+      .d-flex.align-items-center
+        %h1 新着商品
+      %table.table.table-bordered.border-primary.table-hover.table-sm.posts_table
+        %thead.bg-info.text-light
+          %tr.list-head
+            %th{:scope => "col", :style => "width: 10px"} カテゴリー
+            %th{:scope => "col", :style => "width: 100px"} タイトル
+            %th{:scope => "col", :style => "width: 200px"} 質問内容
+            %th{:scope => "col", :style => "width: 100px"} 質問者
+            %th{:scope => "col", :style => "width: 50px"} 更新日時
+            %th{:scope => "col", :style => "width: 20px"}
+        %tbody
+          - @posts.each do |post|
+            %tr
+              %th
+                - post.tags.each do |tag|
+                  %span.badge.badge-light= tag.name
+              %td= post.title
+              %td= truncate(post.body, length: 90)
+              %td= post.user.profile.name
+              %td= post.updated_at.strftime('%Y/%m/%d')
+              %td= link_to '詳細', post, id: "detail-" + post.id.to_s, class: 'btn btn-outline-info'
+      %p.lead{style: 'display: grid;'}
+        = link_to '質問一覧へ', index_list_posts_path ,class: 'btn btn-primary btn-lg'
+    .container{style: "width: 925px;"}
+      .d-flex.align-items-center
+        %h1 人気商品
+      %table.table.table-bordered.border-primary.table-hover.table-sm.posts_table
+        %thead.bg-info.text-light
+          %tr.list-head
+            %th{:scope => "col", :style => "width: 10px"} カテゴリー
+            %th{:scope => "col", :style => "width: 100px"} タイトル
+            %th{:scope => "col", :style => "width: 200px"} 質問内容
+            %th{:scope => "col", :style => "width: 100px"} 質問者
+            %th{:scope => "col", :style => "width: 50px"} 更新日時
+            %th{:scope => "col", :style => "width: 20px"}
+        %tbody
+          - @posts.each do |post|
+            %tr
+              %th
+                - post.tags.each do |tag|
+                  %span.badge.badge-light= tag.name
+              %td= post.title
+              %td= truncate(post.body, length: 90)
+              %td= post.user.profile.name
+              %td= post.updated_at.strftime('%Y/%m/%d')
+              %td= link_to '詳細', post, id: "detail-" + post.id.to_s, class: 'btn btn-outline-info'
+      %p.lead{style: 'display: grid;'}
+        = link_to '質問一覧へ', index_list_posts_path ,class: 'btn btn-primary btn-lg'
+    .panel.panel-default
+      .panel-heading 絞り込み・検索
+      .panel-body
+      .form-inline
+        = form_tag(searches_path,method: :get) do
+          = text_field_tag :search, "",placeholder:"何かお探しですか？"
+          = submit_tag 'search', :name => nil
+      .ml-auto.posts_button
+        = form_tag index_list_posts_path, method: :get, class: 'posts__searchForm' do
+          = select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]), { prompt: 'タグで絞り込み', class: 'form-control posts__select', onchange: 'submit(this.form);'}
+= render 'shared/footer'
