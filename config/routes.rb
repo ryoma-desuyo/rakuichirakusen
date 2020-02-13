@@ -15,7 +15,11 @@ Rails.application.routes.draw do
 
   root 'posts#index'
 
-  resources :users, :only => [:show]
+  resources :users, :only => [:show] do
+    member do
+      get 'favorite'
+    end
+  end
 
   resources :posts do
     resources :comments, only: [:create]

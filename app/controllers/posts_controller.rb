@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :redirect, except: :index
   def index
     @posts = Post.order(created_at: :desc)
     @posts = Post.page(params[:page]).per(5).order("created_at DESC")
@@ -66,5 +67,10 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :image, tag_ids: [])
+  end
+
+  def redirect
+    flash[:notice] = "ログインしてください"
+    redirect_to action: :index unless user_signed_in?
   end
 end

@@ -1,8 +1,6 @@
 = render 'shared/header'
 .container
   = render 'shared/mypage-side'
-  %p
-    #{current_user.name}さん
   %h3 お気に入りしている投稿
   - @user.favorited_posts.each do |post|
     = post.user.profile.name

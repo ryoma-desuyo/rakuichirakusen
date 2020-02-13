@@ -3,17 +3,17 @@
     %h2 Menu
     %ul
       %li
-        =link_to root_path do
+        =link_to favorite_user_path(current_user) do
           %i.fas.fa-home>
-          トップページ
+          お気に入り一覧
       %li
-        =link_to user_path(current_user) do
+        =link_to edit_user_registration_path do
           %i.fas.fa-user>
-          マイページ
+          出品した商品
       %li
         =link_to root_path do
           %i.fas.fa-address-card>
-          商品一覧
+          コメントした商品
       %li
         =link_to root_path do
           %i.fas.fa-project-diagram>
@@ -30,4 +30,3 @@
         =link_to root_path do
           %i.fas.fa-map-pin>
           Map
-
